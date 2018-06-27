@@ -11,9 +11,11 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.telephony.SmsManager;
+import android.util.Log;
 
 public class LocationService extends Service {
 
+    private static final String TAG = "LocationService";
     private static final String SETTING_DEFAULT_INIT_PREFS = "custom_settings_default_prefs";
     private static final String SAFE_PHONE_NUMBER = "safe_phone_number";
     private static final String DEFAULT_SAFE_PHONE_NUMBER = "18707140640";
@@ -39,7 +41,7 @@ public class LocationService extends Service {
         // 参1:标准,参2:是否可用
         String bestProvider = mLM.getBestProvider(criteria, true);
 
-        System.out.println("best provider:" + bestProvider);
+        Log.d(TAG,"best provider:" + bestProvider);
         mListener = new MyListener();
         // 请求位置更新, 参1:位置提供者,参2:最短更新时间(经过多少时间请求定位一次),
         //参3:最短更新距离(离开上一次范围多大请求定位一次);参4:位置监听;
@@ -73,19 +75,19 @@ public class LocationService extends Service {
         // 状态发生变化（信号的变化）
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
-            System.out.println("onStatusChanged");
+            Log.d(TAG,"onStatusChanged");
         }
 
         // 用户打开GPS
         @Override
         public void onProviderEnabled(String provider) {
-            System.out.println("onProviderEnabled");
+            Log.d(TAG,"onProviderEnabled");
         }
 
         // 用户关闭GPS
         @Override
         public void onProviderDisabled(String provider) {
-            System.out.println("onProviderDisabled");
+            Log.d(TAG,"onProviderDisabled");
         }
 
     }
